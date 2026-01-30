@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Announcement banner elements
+  const announcementBanner = document.getElementById("announcement-banner");
+  const closeAnnouncementBtn = document.getElementById("close-announcement");
+
   // DOM elements
   const activitiesList = document.getElementById("activities-list");
   const messageDiv = document.getElementById("message");
@@ -24,6 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
+
+  // Check if announcement was previously dismissed
+  function checkAnnouncementStatus() {
+    const dismissed = localStorage.getItem("announcementDismissed");
+    if (dismissed === "true") {
+      announcementBanner.classList.add("hidden");
+    }
+  }
+
+  // Handle announcement banner close
+  if (closeAnnouncementBtn) {
+    closeAnnouncementBtn.addEventListener("click", () => {
+      announcementBanner.classList.add("hidden");
+      localStorage.setItem("announcementDismissed", "true");
+    });
+  }
+
+  // Initialize announcement
+  if (announcementBanner) {
+    checkAnnouncementStatus();
+  }
 
   // Activity categories with corresponding colors
   const activityTypes = {
